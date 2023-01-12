@@ -240,3 +240,44 @@ int main()
 
     return 0;
 }
+
+// Bilet 19
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    int n, M[20][20], v[10] = {0}, val_min = 100, val_max = 0;
+    ifstream f("date.in");
+    ofstream g("date.out");
+    f >> n;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+        {
+            f >> M[i][j];
+            if (M[i][j] > val_max)
+                val_max = M[i][j];
+            else if (M[i][j] < val_min)
+                val_min = M[i][j];
+        }
+    cout << val_min << ' ' << val_max;
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            if (M[i][j] == val_max)
+                v[i] = 1;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+            if (v[i])
+                g << M[i][j] + val_min << ' ';
+            else
+                g << M[i][j] << ' ';
+
+        g << endl;
+    }
+    return 0;
+}
