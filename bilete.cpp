@@ -247,9 +247,9 @@ int main()
 #include <fstream>
 using namespace std;
 
+int n, M[20][20], v[10] = {0}, val_min = 100, val_max = 0;
 int main()
 {
-    int n, M[20][20], v[10] = {0}, val_min = 100, val_max = 0;
     ifstream f("date.in");
     ofstream g("date.out");
     f >> n;
@@ -279,5 +279,91 @@ int main()
 
         g << endl;
     }
+    return 0;
+}
+
+// bilet 20
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    int a, b, c, v[20], s = 0, k, nr = 1;
+    ifstream f("numere.in");
+    ofstream g("numere.out");
+    f >> a >> b;
+    c = a;
+    while (b != 0)
+    {
+        c = c * 10 + b % 10;
+        b = b / 10;
+    }
+    while (c != 0)
+    {
+        v[s] = c % 10;
+        c = c / 10;
+        s++;
+    }
+    for (int i = 0; i <= s; i++)
+    {
+        cout << v[i];
+    }
+    for (int i = 0; i <= s - 1; i++)
+    {
+        for (int j = i + 1; j <= s; j++)
+        {
+            if (v[i] > v[j])
+            {
+                swap(v[i], v[j]);
+            }
+        }
+    }
+
+    for (int i = 1; i <= s; i++)
+    {
+        g << v[i];
+    }
+    f.close();
+    g.close();
+    return 0;
+}
+
+// bilet 21
+
+#include <fstream>
+#include <string.h>
+using namespace std;
+
+ifstream f("doc.txt");
+ofstream g("cnp.txt");
+
+int main()
+{
+    char str[256];
+    int n = 0;
+    while (!f.eof())
+    {
+        f.getline(str, 256);
+        int l = 0;
+        for (int i = 0; i <= strlen(str); i++)
+            if (str[i] >= '0' && str[i] <= '9')
+            {
+                l++;
+                if (l == 13 && (str[i + 1] < '0' || str[i + 1] > '9'))
+                {
+                    n++;
+                    for (int j = i - l + 1; j <= i; j++)
+                        g << str[j];
+                    g << endl;
+                    l = 0;
+                }
+            }
+            else
+                l = 0;
+    }
+    if (n == 0)
+        g << 0;
     return 0;
 }
