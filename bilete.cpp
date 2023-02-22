@@ -367,3 +367,224 @@ int main()
         g << 0;
     return 0;
 }
+
+// bilet 22
+#include <iostream>
+#include <fstream>
+#include <cmath>
+using namespace std;
+ifstream f("numere.in");
+
+int rotund(int n)
+{
+    int x, ok = 1, nrc = 0, copie = n;
+    // cifrele egale
+    while (n > 9)
+    {
+        x = n % 10;
+        n = n / 10;
+        if (n % 10 != x)
+        {
+            ok = 0;
+            break;
+        }
+    }
+    if (ok == 1)
+        return 1;
+    else
+    {
+        n = copie;
+        while (n)
+        {
+            nrc++;
+            n /= 10;
+        }
+        if (nrc % 2 == 1) // nr impar de cifre
+            return 0;
+        else
+        {
+            n = copie;
+            if (n / (int)pow(10, nrc / 2) == n % (int)pow(10, nrc / 2))
+                return 1;
+        }
+    }
+}
+
+int main()
+{
+    int n, nr, spatiu = 0;
+    f >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        f >> nr;
+        if (rotund(nr))
+        {
+            cout << nr << " ";
+            spatiu++;
+            if (spatiu == 2)
+            {
+                cout << endl;
+                spatiu = 0;
+            }
+        }
+    }
+    return 0;
+}
+
+// bilet 23
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+ofstream g("pag.txt");
+int main()
+{
+    unsigned n, volume, cif;
+    cin >> n;
+    volume = n / (792 / 2);
+    cif = n % 792;
+    if (cif <= 9)
+        g << volume << endl
+          << cif;
+    else
+    {
+        cif -= 9;
+        if (cif < 181)
+        {
+            if (cif % 2 == 0)
+                g << volume << endl
+                  << 9 + cif / 2;
+            else
+                g << "imposibil";
+        }
+        else
+        {
+            cif -= 180;
+            if (cif % 3 == 0)
+                g << volume << endl
+                  << 99 + cif / 3;
+            else
+                g << "imposibil";
+        }
+    }
+    return 0;
+}
+
+// bilet 24
+
+#include <iostream>
+#include <fstream>
+#include <cmath>
+using namespace std;
+ifstream f("eur.in");
+ofstream g("eur.out");
+int main()
+{
+    int S, n, e, b = 0;
+    f >> S >> n >> e;
+    while (S)
+    {
+        if (S / (int)pow(e, n) != 0)
+        {
+            b += S / (int)pow(e, n);
+            g << S / (int)pow(e, n) << " bancnote cu valoarea " << (int)pow(e, n) << endl;
+            S = S % (int)pow(e, n);
+            n -= 1;
+        }
+        else
+        {
+            n -= 1;
+        }
+    }
+    g << b;
+    return 0;
+}
+
+// bilet 25
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+ifstream f("numere.in");
+ofstream g("numere.out");
+int main()
+{
+    int fr[9999] = {0}, x, i;
+    while (f >> x)
+    {
+        fr[x]++;
+    }
+    for (i = 9999; i > 0; i--)
+    {
+        if (fr[i] == 0)
+            g << i << " ";
+    }
+    return 0;
+}
+
+// bilet 26
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+ofstream g("numere.txt");
+int main()
+{
+    short v[] = {1, 2, 3, 4, 5, 4, 3, 2, 1}, i;
+    while (v[5] != 9)
+    {
+        for (i = 0; i <= 8; i++)
+        {
+            g << v[i];
+            v[i]++;
+        }
+        g << " ";
+    }
+}
+
+// bilet 27
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+ifstream f("mat.in");
+ofstream g("mat.out");
+int main()
+{
+    short n, m, M[30][30], v[30], i, j, maxi = 0, sub = 0;
+
+    f >> n >> m;
+
+    for (i = 1; i <= n; i++)
+    {
+        for (j = 1; j <= m; j++)
+        {
+            f >> M[i][j];
+            if (maxi < M[i][j])
+                maxi = M[i][j];
+            if (i == 1)
+                v[j] = M[i][j];
+            else if (v[j] > M[i][j])
+                v[j] = M[i][j];
+        }
+    }
+
+    for (i = 1; i <= n; i++)
+    {
+        if (i != 1)
+            g << endl;
+        for (j = 1; j <= m; j++)
+        {
+            if (M[i][j] == maxi)
+            {
+                M[i][j] = v[j];
+                sub++;
+            }
+            g << M[i][j] << " ";
+        }
+    }
+    g << endl
+      << sub;
+
+    return 0;
+}
