@@ -571,8 +571,6 @@ int main()
 
     for (i = 1; i <= n; i++)
     {
-        if (i != 1)
-            g << endl;
         for (j = 1; j <= m; j++)
         {
             if (M[i][j] == maxi)
@@ -582,9 +580,97 @@ int main()
             }
             g << M[i][j] << " ";
         }
+        g << endl;
     }
     g << endl
       << sub;
+
+    return 0;
+}
+
+// bilet 28
+
+#include <iostream>
+#include <fstream>
+#include <fstream>
+#include <cmath>
+using namespace std;
+ifstream fin("numere.in");
+ofstream fout("numere.out");
+
+int main()
+{
+    int a[101][101], n, i, j, k, x;
+    fin >> n;
+    n = sqrt(n);
+    for (k = 1; k <= (n + 1) / 2; k++)
+    {
+        for (i = k; i <= n + 1 - k; i++)
+            fin >> a[i][k];
+        for (j = k + 1; j <= n + 1 - k; j++)
+            fin >> a[n + 1 - k][j];
+        for (i = n - k; i >= k; i--)
+            fin >> a[i][n + 1 - k];
+        for (j = n - k; j > k; j--)
+            fin >> a[k][j];
+    }
+    for (i = 1; i <= n; i++)
+    {
+        for (j = 1; j <= n; j++)
+            fout << a[i][j] << " ";
+        fout << endl;
+    }
+    fin.close();
+    fout.close();
+    return 0;
+}
+
+// bilet 29
+#include <fstream>
+#include <string.h>
+using namespace std;
+
+ifstream f("date.in");
+ofstream g("date.out");
+
+int main()
+{
+    char str[256], *cuv;
+    while (!f.eof())
+    {
+        f.getline(str, 256);
+        cuv = strtok(str, " .,;:-?!");
+        while (cuv != NULL)
+        {
+            if (strstr(cuv, "ate"))
+            {
+                g << cuv << endl;
+                cuv = strtok(NULL, " .,;:-?!");
+            }
+            else
+                cuv = strtok(NULL, " .,;:-?!");
+        }
+    }
+    return 0;
+}
+
+// bilet 30
+
+#include <fstream>
+#include <cmath>
+using namespace std;
+
+ofstream g("date.out");
+
+int main()
+{
+    int n, x, y;
+    cin >> n;
+
+    for (x = -n; x <= n; x++)
+        for (y = -n; y <= n; y++)
+            if (pow(x, 2) - pow(y, 2) == n)
+                g << x << " " << y << endl;
 
     return 0;
 }
